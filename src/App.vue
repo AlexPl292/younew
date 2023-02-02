@@ -4,6 +4,7 @@ import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
+    Hi there
 <!--  <header>-->
 <!--    <div class="wrapper">-->
 <!--      <nav>-->
