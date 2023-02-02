@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
 import json from "./data.json";
 
-function getRandomArbitrary(min, max) {
+function getRandomArbitrary(min: number, max: number): number {
   min = Math.ceil(min);
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -12,11 +12,6 @@ export default {
     return {
       count: json,
     };
-  },
-  methods: {
-    increment() {
-      this.count++;
-    },
   },
   computed: {
     hello() {
