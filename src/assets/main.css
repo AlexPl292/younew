@@ -25,10 +25,12 @@ a,
   body {
     display: flex;
     place-items: center;
+    text-align: center;
+    vertical-align: middle;
   }
 
   #app {
-    display: grid;
+    /*display: grid;*/
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
   }
