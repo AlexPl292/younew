@@ -89,5 +89,5 @@ export default {
     You live in a city with less than 500 000 people
   </span>
   <br />
-  <span> Like {{ hello.city_perc }}% in this city </span>
+  <span> Like {{ hello.city_perc }}% in this country</span>
 </template>
