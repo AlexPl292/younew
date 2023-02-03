@@ -3,6 +3,7 @@ import countries from "./data.json";
 import cities from "./cities.json";
 import fer_rate from "./fer_rate.json";
 import school from "./school_enrollment.json";
+import tertiary_education from "./tertiary_education.json";
 import VerticalSeparator from "@/views/VerticalSeparator.vue";
 
 function getRandomArbitrary(min: number, max: number): number {
@@ -29,6 +30,8 @@ export default {
         total_children: 1,
         school_participated: false,
         school_perc: "",
+        edu_participated: false,
+        edu_perc: "",
       };
       for (let item in countries) {
         if (
@@ -92,13 +95,27 @@ export default {
       if (school_exists) {
         let school_dice = getRandomArbitrary(0, 100);
         let finished = school_dice <= school_exists;
-        res.school_perc = (finished ? school_exists : (100 - school_exists))
+        res.school_perc = (finished ? school_exists : 100 - school_exists)
           .toFixed(20)
           .match(/^-?\d*\.?0*\d{0,2}/)?.[0]!;
         res.school_participated = finished;
       } else {
         res.school_participated = false;
         res.school_perc = "0";
+      }
+
+      let edu_exists =
+        tertiary_education[res.country_code as keyof typeof tertiary_education];
+      if (edu_exists) {
+        let edu_dice = getRandomArbitrary(0, 100);
+        let finished = edu_dice <= edu_exists;
+        res.edu_perc = (finished ? edu_exists : 100 - edu_exists)
+          .toFixed(20)
+          .match(/^-?\d*\.?0*\d{0,2}/)?.[0]!;
+        res.edu_participated = finished;
+      } else {
+        res.edu_participated = false;
+        res.edu_perc = "0";
       }
       return res;
     },
@@ -132,11 +149,18 @@ export default {
   </span>
   <VerticalSeparator :size="100" />
   <span v-if="hello.school_participated" style="font-size: 150%">
-    You finished the school with the other {{ hello.school_perc }}% of the
+    You finished the school as the other {{ hello.school_perc }}% of the
     country population
   </span>
   <span v-else style="font-size: 150%">
-    You didn't finish the school with the other
+    You didn't finish the school as the other
     {{ hello.school_perc }}% of the country population
+  </span>
+  <VerticalSeparator :size="100" />
+  <span v-if="hello.edu_participated" style="font-size: 150%">
+    Finish of tertiary education as another {{ hello.edu_perc }}%
+  </span>
+  <span v-else style="font-size: 150%">
+    Tertiary education is not finished as another {{ hello.edu_perc }}%
   </span>
 </template>
