@@ -1,10 +1,10 @@
 <script lang="ts">
-import countries from "./data.json";
-import cities from "./cities.json";
-import fer_rate from "./fer_rate.json";
-import school from "./school_enrollment.json";
-import tertiary_education from "./tertiary_education.json";
-import unemployment from "./unemployment.json";
+import countries from "../data/data.json";
+import cities from "../data/cities.json";
+import fer_rate from "../data/fer_rate.json";
+import school from "../data/school_enrollment.json";
+import tertiary_education from "../data/tertiary_education.json";
+import unemployment from "../data/unemployment.json";
 import VerticalSeparator from "@/views/VerticalSeparator.vue";
 
 function getRandomArbitrary(min: number, max: number): number {
@@ -194,8 +194,8 @@ export default {
   <VerticalSeparator :size="50" />
   <span>...</span>
 
-  <br>
-  <div style="margin-bottom: 30px; margin-top: 400px" >
+  <br />
+  <div style="margin-bottom: 30px; margin-top: 400px">
     <a href="/about">about</a>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <script lang="ts">
-import sources from "./sources.json";
+import sources from "../data/sources.json";
 
 export default {
   data() {
@@ -24,13 +24,3 @@ export default {
     <a href="/">back</a>
   </div>
 </template>
-
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
-</style>
