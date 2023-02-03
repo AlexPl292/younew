@@ -2,6 +2,7 @@
 import countries from "./data.json";
 import cities from "./cities.json";
 import fer_rate from "./fer_rate.json";
+import school from "./school_enrollment.json";
 import VerticalSeparator from "@/views/VerticalSeparator.vue";
 
 function getRandomArbitrary(min: number, max: number): number {
@@ -26,6 +27,8 @@ export default {
         perc: "" as string | undefined,
         country_population: 0,
         total_children: 1,
+        school_participated: false,
+        school_perc: "",
       };
       for (let item in countries) {
         if (
@@ -74,19 +77,28 @@ export default {
       }
 
       let rate = fer_rate[res.country_code as keyof typeof fer_rate];
-      console.log(rate);
       if (rate) {
         let total_children = 0;
         for (let i = 0; i < 9; i++) {
           let siblings_dice = getRandomArbitrary(0, 1000);
-          console.log(siblings_dice);
-          console.log((rate as number) * 100);
-          console.log("---");
           if (siblings_dice < (rate as number) * 100) {
             total_children += 1;
           }
         }
         res.total_children = total_children;
+      }
+
+      let school_exists = school[res.country_code as keyof typeof school];
+      if (school_exists) {
+        let school_dice = getRandomArbitrary(0, 100);
+        let finished = school_dice <= school_exists;
+        res.school_perc = (finished ? school_exists : (100 - school_exists))
+          .toFixed(20)
+          .match(/^-?\d*\.?0*\d{0,2}/)?.[0]!;
+        res.school_participated = finished;
+      } else {
+        res.school_participated = false;
+        res.school_perc = "0";
       }
       return res;
     },
@@ -113,7 +125,18 @@ export default {
   <br />
   <span> Like {{ hello.city_perc }}% in this country</span>
   <VerticalSeparator :size="100" />
-  <span>You have
-    {{ hello.total_children === 0 ? 0 : hello.total_children - 1 }} siblings in family
+  <span
+    >You have
+    {{ hello.total_children === 0 ? 0 : hello.total_children - 1 }} siblings in
+    family
+  </span>
+  <VerticalSeparator :size="100" />
+  <span v-if="hello.school_participated" style="font-size: 150%">
+    You finished the school with the other {{ hello.school_perc }}% of the
+    country population
+  </span>
+  <span v-else style="font-size: 150%">
+    You didn't finish the school with the other
+    {{ hello.school_perc }}% of the country population
   </span>
 </template>
