@@ -4,6 +4,7 @@ import cities from "./cities.json";
 import fer_rate from "./fer_rate.json";
 import school from "./school_enrollment.json";
 import tertiary_education from "./tertiary_education.json";
+import unemployment from "./unemployment.json";
 import VerticalSeparator from "@/views/VerticalSeparator.vue";
 
 function getRandomArbitrary(min: number, max: number): number {
@@ -32,6 +33,8 @@ export default {
         school_perc: "",
         edu_participated: false,
         edu_perc: "",
+        unemp_participated: false,
+        unemp_perc: "",
       };
       for (let item in countries) {
         if (
@@ -117,6 +120,20 @@ export default {
         res.edu_participated = false;
         res.edu_perc = "0";
       }
+
+      let unemp_exists =
+        unemployment[res.country_code as keyof typeof unemployment];
+      if (unemp_exists) {
+        let unemp_dice = getRandomArbitrary(0, 100);
+        let finished = unemp_dice <= unemp_exists;
+        res.unemp_perc = (finished ? unemp_exists : 100 - unemp_exists)
+          .toFixed(20)
+          .match(/^-?\d*\.?0*\d{0,2}/)?.[0]!;
+        res.unemp_participated = finished;
+      } else {
+        res.unemp_participated = false;
+        res.unemp_perc = "0";
+      }
       return res;
     },
   },
@@ -149,8 +166,8 @@ export default {
   </span>
   <VerticalSeparator :size="100" />
   <span v-if="hello.school_participated" style="font-size: 150%">
-    You finished the school as the other {{ hello.school_perc }}% of the
-    country population
+    You finished the school as the other {{ hello.school_perc }}% of the country
+    population
   </span>
   <span v-else style="font-size: 150%">
     You didn't finish the school as the other
@@ -163,4 +180,17 @@ export default {
   <span v-else style="font-size: 150%">
     Tertiary education is not finished as another {{ hello.edu_perc }}%
   </span>
+
+  <VerticalSeparator :size="100" />
+  <span v-if="hello.unemp_participated" style="font-size: 150%">
+    You have no job as another {{ hello.unemp_perc }}%
+  </span>
+  <span v-else style="font-size: 150%">
+    You have a job as another {{ hello.unemp_perc }}%
+  </span>
+
+  <VerticalSeparator :size="100" />
+  <span>And you continue your beautiful life</span>
+  <VerticalSeparator :size="50" />
+  <span>...</span>
 </template>
