@@ -1,5 +1,0 @@
-https://data.opendatasoft.com/explore/dataset/geonames-all-cities-with-a-population-1000%40public/table/?disjunctive.cou_name_en&sort=name, CC BY 4.0, population by city
-https://datahub.io/world-bank/sp.dyn.tfrt.in, CC-BY-4.0, Fertility rate
-https://data.worldbank.org/indicator/SE.TER.ENRR, CC-BY-4.0, School rate
-https://ourworldindata.org/tertiary-education, CC-BY-4.0, tertiary education
-https://worldpopulationreview.com/country-rankings/unemployment-by-country, ???, employments

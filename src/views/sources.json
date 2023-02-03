@@ -1,0 +1,27 @@
+[
+  {
+    "url": "https://data.opendatasoft.com/explore/dataset/geonames-all-cities-with-a-population-1000%40public/table/?disjunctive.cou_name_en&sort=name",
+    "license": "CC BY 4.0",
+    "desc": "population by city"
+  },
+  {
+    "url": "https://datahub.io/world-bank/sp.dyn.tfrt.in",
+    "license": "CC-BY-4.0",
+    "desc": "Fertility rate"
+  },
+  {
+    "url": "https://data.worldbank.org/indicator/SE.TER.ENRR",
+    "license": "CC-BY-4.0",
+    "desc": "School rate"
+  },
+  {
+    "url": "https://ourworldindata.org/tertiary-education",
+    "license": "CC-BY-4.0",
+    "desc": "tertiary education"
+  },
+  {
+    "url": "https://worldpopulationreview.com/country-rankings/unemployment-by-country",
+    "license": "CC-BY-4.0",
+    "desc": "employments"
+  }
+]

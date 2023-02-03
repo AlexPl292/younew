@@ -193,4 +193,9 @@ export default {
   <span>And you continue your beautiful life</span>
   <VerticalSeparator :size="50" />
   <span>...</span>
+
+  <br>
+  <div style="margin-bottom: 30px; margin-top: 400px" >
+    <a href="/about">about</a>
+  </div>
 </template>
