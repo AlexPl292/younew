@@ -1,6 +1,8 @@
 <script lang="ts">
 import countries from "./data.json";
 import cities from "./cities.json";
+import fer_rate from "./fer_rate.json";
+import VerticalSeparator from "@/views/VerticalSeparator.vue";
 
 function getRandomArbitrary(min: number, max: number): number {
   min = Math.ceil(min);
@@ -9,6 +11,7 @@ function getRandomArbitrary(min: number, max: number): number {
 }
 
 export default {
+  components: { VerticalSeparator },
   computed: {
     hello() {
       let max = countries.map((x) => x.population).reduce((a, b) => a + b, 0);
@@ -22,6 +25,7 @@ export default {
         city_perc: "" as string | undefined,
         perc: "" as string | undefined,
         country_population: 0,
+        total_children: 1,
       };
       for (let item in countries) {
         if (
@@ -68,6 +72,22 @@ export default {
           .toFixed(20)
           .match(/^-?\d*\.?0*\d{0,2}/)?.[0];
       }
+
+      let rate = fer_rate[res.country_code as keyof typeof fer_rate];
+      console.log(rate);
+      if (rate) {
+        let total_children = 0;
+        for (let i = 0; i < 9; i++) {
+          let siblings_dice = getRandomArbitrary(0, 1000);
+          console.log(siblings_dice);
+          console.log((rate as number) * 100);
+          console.log("---");
+          if (siblings_dice < (rate as number) * 100) {
+            total_children += 1;
+          }
+        }
+        res.total_children = total_children;
+      }
       return res;
     },
   },
@@ -80,8 +100,10 @@ export default {
   <br />
   <span style="font-size: 350%; background: inherit">{{ hello.country }}</span>
   <br />
-  <span>With other {{ hello.perc }}% like you</span>
-  <br />
+  <span>With other {{ hello.perc }}% of the entire population</span>
+
+  <VerticalSeparator :size="50" />
+
   <span v-if="hello.city" style="font-size: 150%">
     Your new city: {{ hello.city }} ({{ hello.city_local }})
   </span>
@@ -90,4 +112,8 @@ export default {
   </span>
   <br />
   <span> Like {{ hello.city_perc }}% in this country</span>
+  <VerticalSeparator :size="100" />
+  <span>You have
+    {{ hello.total_children === 0 ? 0 : hello.total_children - 1 }} siblings in family
+  </span>
 </template>
